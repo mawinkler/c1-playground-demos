@@ -8,7 +8,9 @@ PROMPT_TIMEOUT=3
 DEMO_PROMPT="${GREEN}➜ ${CYAN}\W "
 
 # playground
-PLAYGROUND_DIR="$(find ../ -name \*playground -type d)"
+# configure the directory of your playground clone here
+PLAYGROUND_DIR="../playground"
+# get registry parameters
 REG_USERNAME="$(jq -r '.services[] | select(.name=="playground-registry") | .username' ${PLAYGROUND_DIR}/config.json)"
 REG_PASSWORD="$(jq -r '.services[] | select(.name=="playground-registry") | .password' ${PLAYGROUND_DIR}/config.json)"
 REG_NAME="$(jq -r '.services[] | select(.name=="playground-registry") | .name' ${PLAYGROUND_DIR}/config.json)"
@@ -36,8 +38,8 @@ wait
 NO_WAIT=false
 #pe
 p "./deploy-smartcheck.sh"
-# /bin/bash -c "cd ${PLAYGROUND_DIR} && ./deploy-smartcheck.sh"
-cat logs/deploy-smartcheck.log
+/bin/bash -c "cd ${PLAYGROUND_DIR} && ./deploy-smartcheck.sh"
+# cat logs/deploy-smartcheck.log
 wait
 
 NO_WAIT=true
@@ -50,8 +52,8 @@ wait
 NO_WAIT=false
 #pe
 p "./deploy-container-security.sh"
-# /bin/bash -c "cd ${PLAYGROUND_DIR} && ./deploy-container-security.sh"
-cat logs/deploy-container-security.log
+/bin/bash -c "cd ${PLAYGROUND_DIR} && ./deploy-container-security.sh"
+# cat logs/deploy-container-security.log
 wait
 
 clear
